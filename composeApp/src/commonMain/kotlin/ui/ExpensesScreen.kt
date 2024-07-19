@@ -152,20 +152,20 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
                 Text(
                     text = expense.category.name,
                     fontWeight = FontWeight.ExtraBold,
-                    fontSize = 18.dp,
+                    fontSize = 18.sp,
                     color = colors.textColor
                 )
                 Text(
                     text = expense.description,
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 15.dp,
+                    fontSize = 15.sp,
                     color = Color.Gray
                 )
             }
             Text(
                 text = "$${expense.amount}",
                 fontWeight = FontWeight.ExtraBold,
-                fontSize = 20.dp,
+                fontSize = 20.sp,
                 color = Color.Gray
             )
         }
