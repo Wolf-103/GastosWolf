@@ -1,3 +1,4 @@
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -58,12 +59,16 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(compose.runtime)
-            implementation(compose.foundation)
+            api(compose.foundation)
+            api(compose.animation)
             implementation(compose.material)
+            api(compose.materialIconsExtended)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.precompose)
+            implementation(libs.precomviewmodel)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -105,6 +110,9 @@ android {
     }
     dependencies {
         debugImplementation(compose.uiTooling)
+    }
+    buildFeatures{
+        compose = true
     }
 }
 
