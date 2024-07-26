@@ -31,15 +31,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import getColorsTheme
 import model.Expense
+import presentation.ExpensesUiState
 
 /**
  * @author Cristian Manuel Orozco - Orozcocristian860@gmail.com
  * @created 18/07/2024 19:38
  */
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExpensesScreen() {
+fun ExpensesScreen(uiState: ExpensesUiState, onExpenseClick: (expense: Expense) -> Unit) {
     val colors = getColorsTheme()
     LazyColumn(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
@@ -49,12 +49,12 @@ fun ExpensesScreen() {
             Column(
                 modifier = Modifier.background(color = getColorsTheme().BackgroundColor)
             ) {
-                ExpensesTotalHeader(20040.0)
+                ExpensesTotalHeader(uiState.total)
                 AllExpensesHeader()
             }
         }
-        items(emptyList<String>()) {
-
+        items(uiState.expenses) { expense ->
+            ExpensesItem(expense = expense, onExpenseClick)
         }
     }
 }
