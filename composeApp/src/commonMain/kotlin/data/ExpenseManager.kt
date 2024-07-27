@@ -37,6 +37,12 @@ object ExpenseManager {
         ),
         Expense(
             id = currentId++,
+            amount = 70.0,
+            category = ExpenseCategory.OTHER,
+            description = "Frasco cosas"
+        ),
+        Expense(
+            id = currentId++,
             amount = 80.0,
             category = ExpenseCategory.OTHER,
             description = "Kilian cosas"

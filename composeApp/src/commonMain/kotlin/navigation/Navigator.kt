@@ -13,6 +13,7 @@ import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.viewmodel.viewModel
 import presentation.ExpensesViewModel
+import ui.ExpenseDetailScreen
 import ui.ExpensesScreen
 
 /**
@@ -44,7 +45,7 @@ fun Navigation(navigator: Navigator, modifier: Modifier = Modifier) {
 //        scene(route = "/addExpense/{id}") {
 //            val idFromPath = it.path<Long>("id")
 //        }
-        scene(route = "/addExpense/{id}") { backStackEntry ->
+        scene(route = "/addExpense/{id}?") { backStackEntry ->
             val idFromPath = backStackEntry.path<Long>("id")
             // Verificamos que no sea null el id que estamos trayendo del backstrack
             // ?.lef se usa cuando queremos saber si una referencia es o no nula
@@ -53,11 +54,24 @@ fun Navigation(navigator: Navigator, modifier: Modifier = Modifier) {
             // ? verifica que la referencia no es nula en este caso, y como no se puede usar sola, se realiza lef
             // lef es una funcion de extension que ejecuta un bloque solo si el objeto al que se llama no es nulo,
             // dentro del codigo se pasa el objeto de referencia, generalmente es it, en nuestro caso colcoamos id
-            val isAddExpense = idFromPath?.let { id -> viewModel.getExpenseById(id)}
+            val selectExpense = idFromPath?.let { id -> viewModel.getExpenseById(id)}
             //Si existe, entonces la editamos sino la agregamos
             // es como usar una misma funcion para dos acciones, si no me pasa id entonces estoy agregando
             // y si me pasa algo es editar
-
+            // En expensedetail definimos una vista que devuelve un expense por callback,
+            // por eso le pasamos parametros y despues tenemos un it con el que podemos trabajar
+            ExpenseDetailScreen(
+                expenseToEdit = selectExpense,
+                categoryList = viewModel.getCategories()
+            ){ expenseBack ->
+                //Verificamos si seleccionamos un expense o si lo estamos editando
+                if(selectExpense == null){
+                    viewModel.addExpense(expenseBack)
+                }else{
+                    viewModel.updateExpense(expenseBack)
+                }
+                navigator.popBackStack()
+            }
         }
     }
 }
