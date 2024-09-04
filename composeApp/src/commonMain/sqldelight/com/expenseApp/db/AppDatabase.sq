@@ -1,0 +1,25 @@
+CREATE TABLE Expense (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    amount REAL NOT NULL,
+    categoryName TEXT NOT NULL,
+    description TEXT NOT NULL
+);
+
+INSERT INTO Expense (amount, categoryName, description)
+VALUES
+(70.0,"GROCERIES","Cosas para picar")
+(10.2,"SNACKS","Gomitas"),
+(21800.0,"CAR", "Repuestos y mantenimiento"),
+(15.0,"COFFEE","Batido con crema");
+
+insert:
+INSERT INTO Expense (amount, categoryName, description)
+VALUES(?.?.?);
+
+update:
+UPDATE Expense
+SET amount = ?, categoryName = ?, description = ?
+WHERE id = ?;
+
+selectAll:
+SELECT * FROM Expense;

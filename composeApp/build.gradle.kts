@@ -10,6 +10,18 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.sqldelight)
+}
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("com.expenseApp.db")
+//            generateAsync.set(true)
+        }
+    }
 }
 
 kotlin {
@@ -56,6 +68,13 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            //Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.android)
+            //SQLDelight
+            implementation(libs.android.driver)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -67,9 +86,20 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.precompose)
-            implementation(libs.precomviewmodel)
-
+            implementation(libs.precomposeviewmodel)
+            //Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            api(libs.precompose.koin)
         }
+
+        iosMain.dependencies {
+            //SQLDelight
+            implementation(libs.native.driver)
+            implementation(libs.stately.common)
+        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
